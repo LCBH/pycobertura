@@ -171,6 +171,9 @@ delta_reporters = {
 
 @pycobertura.command(
     help="""\
+[Increase-only version: it only shows coverage that increased (from file1 to file2)
+and not coverage that decreased.]
+
 The diff command compares and shows the changes between two Cobertura reports.
 
 NOTE: Reporting missing lines or showing the source code with the diff command
