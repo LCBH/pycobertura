@@ -425,8 +425,10 @@ class CoberturaDiff:
                     status = None  # unchanged
                     reason = None
                 elif line_status1 is True and line_status2 is False:
-                    status = False  # decreased
-                    reason = "cov-down"
+                    # status = False  # decreased
+                    # reason = "cov-down"
+                    status = None  # unchanged
+                    reason = None
                 elif line_status1 is False and line_status2 is True:
                     status = True  # increased
                     reason = "cov-up"
