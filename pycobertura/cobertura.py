@@ -296,9 +296,10 @@ class CoberturaDiff:
     Diff Cobertura objects.
     """
 
-    def __init__(self, cobertura1, cobertura2):
+    def __init__(self, cobertura1, cobertura2, only_increase):
         self.cobertura1 = cobertura1
         self.cobertura2 = cobertura2
+        self.only_increase = only_increase
 
     def has_better_coverage(self):
         """
@@ -425,10 +426,12 @@ class CoberturaDiff:
                     status = None  # unchanged
                     reason = None
                 elif line_status1 is True and line_status2 is False:
-                    # status = False  # decreased
-                    # reason = "cov-down"
-                    status = None  # unchanged
-                    reason = None
+                    if not(self.only_increase):
+                        status = False  # decreased
+                        reason = "cov-down"
+                    else:
+                        status = None  # unchanged
+                        reason = None
                 elif line_status1 is False and line_status2 is True:
                     status = True  # increased
                     reason = "cov-up"

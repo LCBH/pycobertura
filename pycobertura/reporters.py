@@ -175,10 +175,11 @@ class DeltaReporter:
         cobertura2,
         ignore_regex=None,
         show_source=True,
+        only_increase=False,            
         *args,
         **kwargs,
     ):
-        self.differ = CoberturaDiff(cobertura1, cobertura2)
+        self.differ = CoberturaDiff(cobertura1, cobertura2, only_increase)
         self.show_source = show_source
         self.color = kwargs.pop("color", False)
         self.ignore_regex = ignore_regex

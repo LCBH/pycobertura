@@ -171,8 +171,6 @@ delta_reporters = {
 
 @pycobertura.command(
     help="""\
-[Increase-only version: it only shows coverage that increased (from file1 to file2)
-and not coverage that decreased.]
 
 The diff command compares and shows the changes between two Cobertura reports.
 
@@ -274,6 +272,11 @@ directories (or zip archives). If the source is not available at all, pass
     type=str,
     help="annotation message for github annotation format",
 )
+@click.option(
+    "--only-increase/--with-decrease",
+    default=False,
+    help="Increase-only version: it only shows coverage that increased (from file1 to file2) and not coverage that decreased.",
+)
 def diff(
     cobertura_file1,
     cobertura_file2,
@@ -290,6 +293,7 @@ def diff(
     annotation_level,
     annotation_title,
     annotation_message,
+    only_increase,
 ):
     """compare coverage of two Cobertura reports"""
     # Assume that the source is located in the same directory as the provided
@@ -308,7 +312,7 @@ def diff(
 
     Reporter = delta_reporters[format]
     reporter_args = [cobertura1, cobertura2, ignore_regex]
-    reporter_kwargs = {"show_source": source}
+    reporter_kwargs = {"show_source": source, "only_increase": only_increase}
 
     isatty = True if output is None else output.isatty()
 
